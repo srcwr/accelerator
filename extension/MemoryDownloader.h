@@ -8,7 +8,7 @@
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License, version 3.0, as published by the
  * Free Software Foundation.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
@@ -32,7 +32,7 @@
 #ifndef _INCLUDE_SOURCEMOD_UPDATER_MEMORY_DOWNLOADER_H_
 #define _INCLUDE_SOURCEMOD_UPDATER_MEMORY_DOWNLOADER_H_
 
-#include <IWebternet.h>
+#include "curlapi.h"
 
 namespace SourceMod
 {
@@ -42,7 +42,7 @@ namespace SourceMod
 		MemoryDownloader();
 		~MemoryDownloader();
 	public:
-		DownloadWriteStatus OnDownloadWrite(IWebTransfer *session,
+		DownloadWriteStatus OnDownloadWrite(WebTransfer *session,
 			void *userdata,
 			void *ptr,
 			size_t size,
