@@ -1,9 +1,3 @@
-# vim: set ts=2 sw=2 tw=99 noet ft=python:
-import os, sys
-
-builder.SetBuildFolder('third_party/config')
-for compiler in Accelerator.targets:
-  output = """
 /* define if the compiler supports basic C++17 syntax */
 #define HAVE_CXX17 1
 
@@ -27,9 +21,7 @@ for compiler in Accelerator.targets:
 
 /* Define to 1 if you have the <unistd.h> header file. */
 #define HAVE_UNISTD_H 1
-  """
-  if compiler.target.platform == "linux":
-    output += """
+
 /* Define to 1 if you have the <a.out.h> header file. */
 #define HAVE_A_OUT_H 1
 
@@ -53,30 +45,19 @@ for compiler in Accelerator.targets:
 
 /* Define to 1 if you have the `memfd_create' function. */
 #define HAVE_MEMFD_CREATE 1
-    """
-  
-  if '-lrustc_demangle' in compiler.postlink:
-    output += """
+
 /* Define to 1 if you have the `rustc_demangle' library (-lrustc_demangle). */
-#define HAVE_LIBRUSTC_DEMANGLE 1
+#define HAVE_LIBRUSTC_DEMANGLE 0
 
 /* Define to 1 if you have the <rustc_demangle.h> header file. */
-#define HAVE_RUSTC_DEMANGLE_H 1
-    """
+#define HAVE_RUSTC_DEMANGLE_H 0
 
-  if '-pthread' in compiler.postlink:
-    output += """
 /* Define if you have POSIX threads libraries and header files. */
 #define HAVE_PTHREAD 1
-    """
 
-  if '-lzstd' in compiler.postlink:
-    output += """
 /* Define to 1 if you have the `zstd' library (-lzstd). */
-#define HAVE_LIBZSTD 1
-    """
-  
-  output += """
+#define HAVE_LIBZSTD 0
+
 /* Name of package */
 #define PACKAGE "breakpad"
 
@@ -100,5 +81,3 @@ for compiler in Accelerator.targets:
 
 /* Version number of package */
 #define VERSION "0.1"
-"""
-  Accelerator.breakpad_config[compiler.target.arch] = [builder.AddOutputFile(os.path.join(compiler.target.arch, 'config.h'), output.encode())]
